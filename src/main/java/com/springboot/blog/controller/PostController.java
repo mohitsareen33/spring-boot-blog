@@ -1,5 +1,6 @@
 package com.springboot.blog.controller;
 
+import com.springboot.blog.entity.Post;
 import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.service.PostService;
 import org.springframework.http.HttpStatus;
@@ -31,4 +32,23 @@ public class PostController {
         return postService.getAllPosts();
     }
 
+//    get post by id
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") long id){
+        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
+//    update post by id
+    @PutMapping("/{id}")
+    public ResponseEntity<PostDto> updatePost(@RequestBody PostDto postDto,  @PathVariable("id") long id){
+        return new ResponseEntity<>(postService.updatePost(postDto, id), HttpStatus.OK);
+    }
+
+//    delete post
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePost(@PathVariable("id") long id){
+        postService.deletePost(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Post entity deleted succesfully");
+
+    }
 }
