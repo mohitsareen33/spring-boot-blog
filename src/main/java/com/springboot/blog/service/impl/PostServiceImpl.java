@@ -6,6 +6,7 @@ import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.service.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,10 +24,19 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
 //    constructor based dependency injection
+//    public PostServiceImpl(PostRepository postRepository) {
+//    this.postRepository = postRepository;
+//}
 
-    public PostServiceImpl(PostRepository postRepository) {
+    private ModelMapper mapper;
+//    since we are using constructor based dependency injection we need to configure it in constructor
+    public PostServiceImpl(PostRepository postRepository, ModelMapper mapper) {
+
         this.postRepository = postRepository;
+        this.mapper = mapper;
     }
+
+
 
     @Override
     public PostDto createPost(PostDto postDto) {
@@ -103,26 +113,38 @@ public class PostServiceImpl implements PostService {
         postRepository.delete(post);
     }
 
-
-    //    convert entity to dto
+//    convert entity to dto using model mapper
     private PostDto mapToDto(Post post){
-        PostDto postDto = new PostDto();
-        postDto.setTitle(post.getTitle());
-        postDto.setDescription(post.getDescription());
-        postDto.setContent(post.getContent());
-
+        PostDto postDto = mapper.map(post, PostDto.class);
         return postDto;
-
     }
 
-//    convert dto to entity
+//    convert dto to entity using model mapper
     private Post mapToEntity(PostDto postDto){
-        Post post = new Post();
-        post.setTitle(postDto.getTitle());
-        post.setDescription(postDto.getDescription());
-        post.setContent(postDto.getContent());
+        Post post = mapper.map(postDto, Post.class);
         return post;
     }
+
+
+    //    convert entity to dto
+//    private PostDto mapToDto(Post post){
+//        PostDto postDto = new PostDto();
+//        postDto.setTitle(post.getTitle());
+//        postDto.setDescription(post.getDescription());
+//        postDto.setContent(post.getContent());
+//
+//        return postDto;
+//
+//    }
+
+//    convert dto to entity
+//    private Post mapToEntity(PostDto postDto){
+//        Post post = new Post();
+//        post.setTitle(postDto.getTitle());
+//        post.setDescription(postDto.getDescription());
+//        post.setContent(postDto.getContent());
+//        return post;
+//    }
 
 }
 
