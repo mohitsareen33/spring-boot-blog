@@ -25,13 +25,16 @@ public class PostController {
 
 //    create blog post
     @PreAuthorize("hasRole('ADMIN')")
+//    by using above annotation we can state only admin can access createPost api
     @PostMapping
     public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto){
 
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
+//        postService.createPost(postDto) will return postDto object
     }
 
 //    get all posts
+//    if we don't specify status code then it will return 200 status code as default
     @GetMapping
     public PostResponse getAllPosts(@RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                                     @RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,

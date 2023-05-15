@@ -24,6 +24,6 @@ public class PostDto {
     @NotEmpty
     private String content;
 
-//    to get comments with posts
+//    to get comments(all comments will come) with posts
     private Set<CommentDto> comments;
 }

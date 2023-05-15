@@ -57,9 +57,11 @@ public class PostServiceImpl implements PostService {
 
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
+//        sortDir is the direction by which we need to sort the order i.e. ascending or descending order
 
 //        create pageable instance
 //        Pageable pageable = PageRequest.of(pageNo, pageSize);
+//        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
 //      PageRequest.of provides pagination support
 //      If we use PageRequest.of with 3 arguments, it will provide pagination and sorting support
@@ -71,7 +73,11 @@ public class PostServiceImpl implements PostService {
         List<Post> listOfPosts = posts.getContent();
 
         List<PostDto> content = listOfPosts.stream().map(post -> mapToDto(post)).collect(Collectors.toList());
+//        content ==> listOfPostsDto
+
         PostResponse postResponse = new PostResponse();
+//        we have created this object using no argument constructor
+
         postResponse.setContent(content);
         postResponse.setPageNo(posts.getNumber());
         postResponse.setPageSize(posts.getSize());
@@ -146,5 +152,7 @@ public class PostServiceImpl implements PostService {
 //        return post;
 //    }
 
+//    repository methods used
+//    findAll(), findById(id), save(post), delete(post)
 }
 

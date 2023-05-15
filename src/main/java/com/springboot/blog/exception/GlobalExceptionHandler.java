@@ -42,6 +42,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     // global exceptions
 //    whenever any exception happens then client expects this exception to come up
 //    This handler will handle all the exceptions except above 2 specific exceptions
+//    We are using @ExceptionHandler(Exception.class) bcoz exception is root class and will handle all the exceptions
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDetails> handleGlobalException(Exception exception,
                                                                WebRequest webRequest){
@@ -77,6 +78,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 //    });
 //    return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 
+
+//    to handle exception occuring in basic authentication
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorDetails> handleAccessDeniedException(AccessDeniedException exception,
                                                                         WebRequest webRequest){

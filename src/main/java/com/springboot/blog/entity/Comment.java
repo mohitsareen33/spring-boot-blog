@@ -23,5 +23,6 @@ public class Comment {
 //    To establish relation b/w 2 entities
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
+//    @JoinColumn is used to specify foreign key
     private Post post;
 }

@@ -28,5 +28,5 @@ public class Post {
 //    mapped by is to map post from comment entity
 //    CascadeType.ALL is to save child thing when we save parent thing
     private Set<Comment> comments = new HashSet<>();
-//    As we want unique comments we will use comments here
+//    As we want unique comments we will use set comments here
 }
